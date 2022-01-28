@@ -20,7 +20,7 @@ def detail(request, post_id):
     source = alarm(request)
     data = json.loads(source.content)
     
-    alarmlist = [];
+    alarmlist = []
     for i,c in enumerate(data):
         if i<100 :
             alarmlist.append(c)
@@ -45,7 +45,7 @@ def comment_create(request, post_id):
         source = alarm(request)
         data = json.loads(source.content)
         
-        alarmlist = [];
+        alarmlist = []
         for i,c in enumerate(data):
             if i<100 :
                 alarmlist.append(c)
@@ -53,13 +53,11 @@ def comment_create(request, post_id):
         context.update({"alarm_list":alarmlist})
         try:
             comment = post.comment_set.get(author=author)
-            if request.POST.get('content')!=None:
-                comment.content = request.POST.get('content')
-            if request.POST.get('description')!=None:
-                comment.description = request.POST.get('description')
-            if request.POST.get('content')!=None or request.POST.get('description')!=None:
-                comment.save()
-            return redirect('post:detail', context)
+            comment.content = request.POST.get('content')
+            comment.description = request.POST.get('description')
+
+            comment.save()
+            return redirect('post:detail', post_id=post.id)
         except:
             form = CommentForm(request.POST)
             if form.is_valid():
@@ -82,7 +80,7 @@ def post_create(request):
     source = alarm(request)
     data = json.loads(source.content)
     
-    alarmlist = [];
+    alarmlist = []
     for i,c in enumerate(data):
         if i<100 :
             alarmlist.append(c)
@@ -110,7 +108,7 @@ def post_update(request, post_id):
     source = alarm(request)
     data = json.loads(source.content)
     
-    alarmlist = [];
+    alarmlist = []
     for i,c in enumerate(data):
         if i<100 :
             alarmlist.append(c)
