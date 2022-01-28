@@ -52,12 +52,12 @@ def comment_create(request, post_id):
 
         context.update({"alarm_list":alarmlist})
         try:
-            comment = post.comment_set.get(author=author)
-            comment.content = request.POST.get('content')
-            comment.description = request.POST.get('description')
+          comment = post.comment_set.get(author=author)
+          comment.content = request.POST.get('content')
+          comment.description = request.POST.get('description')
+          comment.save()
+          return redirect('post:detail', post_id = post.id)
 
-            comment.save()
-            return redirect('post:detail', post_id=post.id)
         except:
             form = CommentForm(request.POST)
             if form.is_valid():
