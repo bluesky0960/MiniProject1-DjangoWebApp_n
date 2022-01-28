@@ -25,7 +25,7 @@ class Post(models.Model):
 
     @property
     def get_tag_list(self):
-        return self.tags.split(' ')
+        return self.tags.split(', ')
 
     @property
     def get_like_cnt(self):
